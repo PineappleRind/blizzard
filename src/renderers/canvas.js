@@ -1,6 +1,6 @@
 export default class CanvasRenderer {
   constructor(options) {
-    this.canvas = options.renderer.target;
+    this.canvas = options.sky;
     this.ctx = this.canvas.getContext("2d");
   }
 
@@ -11,8 +11,8 @@ export default class CanvasRenderer {
       this.circle(
         snowflake.pos.x,
         snowflake.pos.y,
-        snowflake.size * (snowflake.pos.z / 2) + 1,
-      `hsla(0, 20%, 100%, ${snowflake.dimness * snowflake.pos.z / 4}`
+        snowflake.pos.z / 2 + 1,
+      `hsla(0, 20%, 100%, ${snowflake.pos.z / 4}`
       );
     }
   }

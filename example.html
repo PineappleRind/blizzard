@@ -21,17 +21,15 @@
     <canvas width="600" height="700"></canvas>
     <script type="module" src="src/index.js"></script>
     <script defer>
-        let c =document.querySelector('canvas');
+        let c = document.querySelector('canvas');
         c.height = window.innerHeight;
         c.width = window.innerWidth
     new window.Blizzard({
-        renderer: {
-            type: 'canvas', // dom | canvas
-            target: c,      // HTMLElement | HTMLCanvasElement
-        },
+        sky: c,   // HTMLElement | HTMLCanvasElement
         amount: 200,   // # of snowflakes
         movement: 10,  // in px, x movement
-        fallSpeed: 0.5 // 0-1
+        fallSpeed: 0.5, // 0-1
+        respawn: 4, // 0-100
     })
     </script>
 </body>
