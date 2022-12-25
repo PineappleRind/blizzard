@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        * {
-            margin:0;
-            box-sizing: border-box;
-        }
-        body {
-            background: black;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: black;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <canvas width="600" height="700"></canvas>
-    <script type="module" src="src/index.js"></script>
-    <script defer>
-        let c = document.querySelector('canvas');
-        c.height = window.innerHeight;
-        c.width = window.innerWidth
-    new window.Blizzard({
-        sky: c,   // HTMLElement | HTMLCanvasElement
-        amount: 200,   // # of snowflakes
-        movement: 10,  // in px, x movement
+  <body>
+    <canvas></canvas>
+    <script type="module">
+      import Blizzard from "./build/blizzard.js";
+
+      let c = document.querySelector("canvas");
+      c.height = window.innerHeight - 4;
+      c.width = window.innerWidth - 4;
+
+      let blizzard = new Blizzard(c, {
+        amount: 50, // # of snowflakes
+        size: 0.6, // 0-1, size multiplier
+        movement: 10, // in px, x movement
         fallSpeed: 0.5, // 0-1
-        respawn: 4, // 0-100
-    })
-    </script>
-</body>
+        respawn: 1, // 0-100
+        focus: 1, //0-9 - focus on this Z pos, 9 is closest
+        fStop: 1, // 0-1
+      });
 
+      blizzard.play();
+    </script>
+  </body>
 </html>

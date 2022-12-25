@@ -4,15 +4,16 @@ export default class Snowflake {
     this.random = Math.random();
     this.startX = Math.floor(Math.random() * window.innerWidth);
     // User settings
-    this.respawn = options.respawn || 1;
+    this.respawn = options.respawn || 2;
     this.fallSpeed = (options.fallSpeed || 0.5) + Math.random(); // px/sec
-    this.movement = options.movement || 20; // x sine intensity
-    // Position determiners 
+    this.movement = (options.movement || 20) + this.random * 40; // x sine intensity
+    // Position determiners
     this.pos = {
       x: null,
-      y: 0 + -this.random * (window.innerHeight * this.respawn),
-      // from 0 to 4
-      z: Math.round(Math.random() * 4),
+      // Random Y position above the top of the screen
+      y: -this.random * (window.innerHeight * this.respawn),
+      // from 0 to 10
+      z: Math.round(Math.random() * 10),
     };
   }
 
@@ -20,9 +21,10 @@ export default class Snowflake {
     // fall
     this.pos.y += this.fallSpeed;
     // oscillate
-    this.pos.x =
-      this.startX +
-      Math.sin(tick / (30 + this.random * 20) + this.random) * this.movement;
+    let speed = 30 + this.random * 30;
+    let oscillation = Math.sin(tick / (speed + this.random * 300));
+    // console.log(this.pos.z,oscillation.toFixed(3),Math.round(this.movement),Math.round(oscillation*this.movement))
+    this.pos.x = this.startX + oscillation * this.movement;
     // respawning behaviour
     if (this.pos.y > window.innerHeight * this.respawn)
       this.pos.y = -this.random * (window.innerHeight * this.respawn);

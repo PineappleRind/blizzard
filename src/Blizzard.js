@@ -1,15 +1,14 @@
 import Snowflake from "./Snowflake.js";
-import renderers from "./renderers/index.js";
+import CanvasRenderer from "./CanvasRenderer.js";
 
 export default class Blizzard {
-  constructor(options) {
-    let renderer = 'dom';
-    if (options.sky.tagName === 'CANVAS') renderer = 'canvas';
-    
-    this.renderer = new renderers[renderer](options);
+  constructor(canvas, options) {
+    options.respawn ??= options.fStop ??= options.size ??= 1;
+
+    this.renderer = new CanvasRenderer(canvas, options);
 
     this.snowflakes = [];
-    for (let i = 0; i < options.amount; i++)
+    for (let i = 0; i < options.amount * options.respawn; i++)
       this.snowflakes.push(new Snowflake(options));
 
     this.tick = 0;
@@ -21,13 +20,11 @@ export default class Blizzard {
   play() {
     this.playing = true;
     this.frame();
-
     return this;
   }
 
   pause() {
     this.playing = false;
-
     return this;
   }
 
@@ -35,7 +32,6 @@ export default class Blizzard {
     if (!this.playing) return;
     this.tick++;
     this.renderer.render(this.snowflakes, this.tick);
-
     window.requestAnimationFrame(this.frame.bind(this));
   }
 }
