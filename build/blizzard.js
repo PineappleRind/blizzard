@@ -55,8 +55,7 @@ window.Blizzard = (function () {
           Math.abs(
             (snowflake.pos.z - this.options.focus) *
               (1 - (this.options.fStop || 0.5))
-          ).toFixed(1),
-          snowflake.pos.z
+          ).toFixed(1)
         );
       }
     }
